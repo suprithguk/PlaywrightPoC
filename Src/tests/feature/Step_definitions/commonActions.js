@@ -25,6 +25,7 @@ Given(/^I select by visible text "(.*)" in "(.*)" $/, async function (value, sel
   await pageFixture.page.locator(locator).selectOption(value);
 });
 
+# Run axecore for accessibility testing
 When(I run axecore, async function (){
   await injectAxe(pageFixture.page)
   await checkAlly(pageFixture.page, null, {
@@ -46,3 +47,22 @@ When(I run axecore, async function (){
                   }
 )
 }
+
+# Generate random email id 
+var emailId = '';
+Then(/*I enter email address in text box "([^"]*)"$/, async function (selector) {
+  const locator = await getLocator(selector);
+  var random = Math.random();
+  var date = new Date();
+  var components = [
+    date.getHours(),
+    date.getMinutes(),
+    date.getSeconds(),
+    date.getMilliseconds()
+  ];
+  var id = components.join("");
+  id = parseInt(id);
+  random = parseInt(random * 100000000);
+  random = id + random;
+  emailId = 'auto' + random + '@gmail.com'
+})
